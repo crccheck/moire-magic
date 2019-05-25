@@ -1,7 +1,7 @@
 $color-1: #000;
 $size: 4px;
 
-body {
+.container {
   display: grid;
   justify-content: center;
   grid-template-columns: 1fr 1fr 1fr;
@@ -57,14 +57,5 @@ path {
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
-  }
-}
-
-.form {
-  label {
-    display: block;
-  }
-  input {
-    width: 4em;
   }
 }
