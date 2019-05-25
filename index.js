@@ -114,10 +114,11 @@ class Designer {
     }
 
     this.$targetSVG.html(paths.join(''))
-    for (let i = 0; i < this.order; i++) {
-      paths.push(`<circle cx="${this.beg[i][0]}" cy="${this.beg[i][1]}" r="2" fill="green" />`)
-      paths.push(`<circle cx="${this.end[i][0]}" cy="${this.end[i][1]}" r="2" fill="red" />`)
-    }
+    // DELETEME after scroll offset calculation is fixed
+    // for (let i = 0; i < this.order; i++) {
+    //   paths.push(`<circle cx="${this.beg[i][0]}" cy="${this.beg[i][1]}" r="2" fill="green" />`)
+    //   paths.push(`<circle cx="${this.end[i][0]}" cy="${this.end[i][1]}" r="2" fill="red" />`)
+    // }
     // Draw viewport reference circle
     paths.push('<circle cx="50" cy="50" r="51" fill="none" stroke="#888" stroke-width="0.5" />')
     this.$designerSVG.html(paths.join(''))
