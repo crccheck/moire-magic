@@ -28,6 +28,7 @@ $size: 4px;
 
 .main {
   position: relative; // reset offset
+  clip-path: polygon(50% 10%, 90% 50%, 15% 70%);
 }
 
 path {
@@ -43,8 +44,6 @@ path {
 
 .circle {
   margin-top: 1em;
-  border-radius: 50%;
-  overflow: hidden;
 }
 
 .face {
