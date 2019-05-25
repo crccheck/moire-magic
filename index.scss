@@ -17,9 +17,16 @@ $size: 4px;
 
 .control {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: blue;
+  width: 1em;
+  height: 1em;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
+
+  background: cyan;
+  border-radius: 0.25em;
+  cursor: move;
+  line-height: 1em;
+  text-align: center;
 }
 
 .first {
