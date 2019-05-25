@@ -56,11 +56,11 @@ class Designer {
     this.$designerUI.find('.control').remove()
     console.log(this.$designerUI.offset(), this.$designerUI.position())
     const parentOffset = this.$designerUI.offset()
-    const m2 = this.$designerSVG[0].getScreenCTM()
     for (let i = 0; i < n; i++) {
+      const m2 = this.$designerSVG[0].getScreenCTM()
       console.log(this.beg, m2)
-      let top = this.beg[i][1] * m2.a + m2.e + parentOffset.top
-      let left = this.beg[i][0] * m2.d + m2.f - 147
+      let top = this.beg[i][1] * m2.a + m2.f
+      let left = this.beg[i][0] * m2.d + m2.e
       $(`<div class="control" data-x="${this.beg[i][0]}" data-y="${this.beg[i][1]}">+</div>`)
         .css({
           top: `${top}px`,
@@ -68,8 +68,8 @@ class Designer {
         })
         .appendTo(this.$designerUI)
 
-      top = this.end[i][1] * m2.a + m2.e + parentOffset.top
-      left = this.end[i][0] * m2.d + m2.f - 147
+      top = this.end[i][1] * m2.a + m2.f
+      left = this.end[i][0] * m2.d + m2.e
       $(`<div class="control" data-x="${this.end[i][0]}" data-y="${this.end[i][1]}">-</div>`)
         .css({
           top: `${top}px`,
