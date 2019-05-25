@@ -3,16 +3,9 @@ $size: 4px;
 
 .container {
   display: grid;
-  justify-content: center;
+  align-content: space-between;
   grid-template-columns: 1fr 1fr 1fr;
-}
-
-.beg {
-  color: green;
-}
-
-.end {
-  color: red;
+  grid-column-gap: 1em;
 }
 
 .control {
@@ -31,20 +24,15 @@ $size: 4px;
   text-align: center;
 }
 
-.first {
-  order: -1;
+.frame {
+  border: 1px solid linen;
+  padding: 1em;
 }
 
-.pattern, .patternb, .circle {
-  flex-grow: 10;
-  width: 80vh;
-  max-width: 100%;
-  // outline: 1px solid blue;
-}
-
-.main {
+.combined {
   position: relative; // reset offset
-  clip-path: polygon(50% 10%, 90% 50%, 15% 70%);
+  // clip-path: polygon(50% 10%, 90% 50%, 15% 70%);
+  clip-path: circle(50%);
 }
 
 path {
@@ -56,10 +44,6 @@ path {
     outline: 1px solid linen;
     max-height: calc(100vh - 2em);
   }
-}
-
-.circle {
-  margin-top: 1em;
 }
 
 .face {
