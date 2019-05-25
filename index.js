@@ -29,18 +29,6 @@ class Designer {
     this.setOrder(1)
 
     const self = this
-    // this.$designerSVG.on('click', function(evt, b) {
-    //   const x = evt.pageX * self.matrix.a + self.matrix.e
-    //   const y = evt.pageY * self.matrix.d + self.matrix.f
-    //   const idx = evt.ctrlKey || evt.metaKey ? 1: 0
-    //   if (evt.shiftKey) {
-    //     self.end[idx] = [x, y]
-    //   } else {
-    //     self.beg[idx] = [x, y]
-    //   }
-    //   self.setOrder(self.order) // DELETEME after html control points work
-    //   self.draw()
-    // })
     $designerUI.find('input[type="radio"]').on('click', function () {
       self.setOrder(+this.value)
       self.draw()
@@ -57,6 +45,7 @@ class Designer {
     const parentOffset = this.$designerUI.offset()
     const scrollTop = $(window).scrollTop()
     const m2 = this.$designerSVG[0].getScreenCTM()
+    const self = this;
     for (let i = 0; i < n; i++) {
       let top = this.beg[i][1] * m2.a + m2.f + scrollTop
       let left = this.beg[i][0] * m2.d + m2.e
@@ -66,7 +55,14 @@ class Designer {
           left: `${left}px`
         })
         .appendTo(this.$designerUI)
-        .draggable()
+        .draggable({
+          drag(evt) {
+            const x = evt.pageX * self.matrix.a + self.matrix.e
+            const y = (evt.pageY - scrollTop) * self.matrix.d + self.matrix.f
+            self.beg[i] = [x, y]
+            self.draw()
+          }
+        })
 
       top = this.end[i][1] * m2.a + m2.f + scrollTop
       left = this.end[i][0] * m2.d + m2.e
@@ -76,7 +72,14 @@ class Designer {
           left: `${left}px`
         })
         .appendTo(this.$designerUI)
-        .draggable()
+        .draggable({
+          drag(evt) {
+            const x = evt.pageX * self.matrix.a + self.matrix.e
+            const y = (evt.pageY - scrollTop) * self.matrix.d + self.matrix.f
+            self.end[i] = [x, y]
+            self.draw()
+          }
+        })
     }
   }
 
