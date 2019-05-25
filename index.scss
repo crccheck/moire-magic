@@ -35,6 +35,10 @@ $size: 4px;
   clip-path: circle(50%);
 }
 
+input[type=number] {
+  width: 4em;
+}
+
 path {
   stroke-width: 0.5px;
 }

@@ -33,6 +33,10 @@ class Designer {
       self.setOrder(+this.value)
       self.draw()
     })
+    $designerUI.find('input[type="number"]').on('change', function () {
+      self.pitch = +this.value
+      self.draw()
+    })
   }
 
   toString() {
