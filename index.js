@@ -29,18 +29,18 @@ class Designer {
     this.setOrder(1)
 
     const self = this
-    this.$designerSVG.on('click', function(evt, b) {
-      const x = evt.pageX * self.matrix.a + self.matrix.e
-      const y = evt.pageY * self.matrix.d + self.matrix.f
-      const idx = evt.ctrlKey || evt.metaKey ? 1: 0
-      if (evt.shiftKey) {
-        self.end[idx] = [x, y]
-      } else {
-        self.beg[idx] = [x, y]
-      }
-      self.setOrder(self.order) // DELETEME after html control points work
-      self.draw()
-    })
+    // this.$designerSVG.on('click', function(evt, b) {
+    //   const x = evt.pageX * self.matrix.a + self.matrix.e
+    //   const y = evt.pageY * self.matrix.d + self.matrix.f
+    //   const idx = evt.ctrlKey || evt.metaKey ? 1: 0
+    //   if (evt.shiftKey) {
+    //     self.end[idx] = [x, y]
+    //   } else {
+    //     self.beg[idx] = [x, y]
+    //   }
+    //   self.setOrder(self.order) // DELETEME after html control points work
+    //   self.draw()
+    // })
     $designerUI.find('input[type="radio"]').on('click', function () {
       self.setOrder(+this.value)
       self.draw()
