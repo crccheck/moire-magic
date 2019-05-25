@@ -53,13 +53,12 @@ class Designer {
 
   setOrder(n/*: number */) {
     this.order = n
-    this.$designerUI.find('.control').remove()
-    console.log(this.$designerUI.offset(), this.$designerUI.position())
+    this.$designerUI.find('.control').remove() // WISHLIST reuse DOM
     const parentOffset = this.$designerUI.offset()
+    const scrollTop = $(window).scrollTop()
+    const m2 = this.$designerSVG[0].getScreenCTM()
     for (let i = 0; i < n; i++) {
-      const m2 = this.$designerSVG[0].getScreenCTM()
-      console.log(this.beg, m2)
-      let top = this.beg[i][1] * m2.a + m2.f
+      let top = this.beg[i][1] * m2.a + m2.f + scrollTop
       let left = this.beg[i][0] * m2.d + m2.e
       $(`<div class="control" data-x="${this.beg[i][0]}" data-y="${this.beg[i][1]}">+</div>`)
         .css({
@@ -68,7 +67,7 @@ class Designer {
         })
         .appendTo(this.$designerUI)
 
-      top = this.end[i][1] * m2.a + m2.f
+      top = this.end[i][1] * m2.a + m2.f + scrollTop
       left = this.end[i][0] * m2.d + m2.e
       $(`<div class="control" data-x="${this.end[i][0]}" data-y="${this.end[i][1]}">-</div>`)
         .css({
@@ -76,8 +75,6 @@ class Designer {
           left: `${left}px`
         })
         .appendTo(this.$designerUI)
-      // $('<div class="control">-</div>')
-      //   .appendTo(this.$designerUI)
     }
   }
 
