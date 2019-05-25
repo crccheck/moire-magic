@@ -18,35 +18,69 @@ class Designer {
     beg = [[20, -20], [50, 20]],
     end = [[20, 50], [70, 100]]
   ) {
+    this.$designerUI = $designerUI
     this.$designerSVG = $designerUI.find('svg')
     this.$targetSVG = $targetSVG
-    this.order = 1
     this.pitch = 2
     this.beg = beg
     this.end = end
     this.$designerSVG.attr('viewBox', `${-CROP} ${-BLEED} ${100 + 2 * CROP} ${100 + 2 * BLEED}`)
-    const matrix = this.$designerSVG[0].getScreenCTM().inverse()
+    this.matrix = this.$designerSVG[0].getScreenCTM().inverse()
+    this.setOrder(1)
 
     const self = this
-    this.$designerSVG.on('click', function(evt, b) {
-      const x = evt.pageX * matrix.a + matrix.e
-      const y = evt.pageY * matrix.d + matrix.f
-      const idx = evt.ctrlKey || evt.metaKey ? 1: 0
-      if (evt.shiftKey) {
-        self.end[idx] = [x, y]
-      } else {
-        self.beg[idx] = [x, y]
-      }
-      self.draw()
-    })
     $designerUI.find('input[type="radio"]').on('click', function () {
-      self.order = +this.value
+      self.setOrder(+this.value)
       self.draw()
     })
   }
 
   toString() {
     return [this.order, this.pitch, this.beg.slice(0, this.order), this.end.slice(0, this.order)].join('|')
+  }
+
+  setOrder(n/*: number */) {
+    this.order = n
+    this.$designerUI.find('.control').remove() // WISHLIST reuse DOM
+    const parentOffset = this.$designerUI.offset()
+    const scrollTop = $(window).scrollTop()
+    const m2 = this.$designerSVG[0].getScreenCTM()
+    const self = this;
+    for (let i = 0; i < n; i++) {
+      let top = this.beg[i][1] * m2.a + m2.f + scrollTop
+      let left = this.beg[i][0] * m2.d + m2.e
+      $(`<div class="control" data-x="${this.beg[i][0]}" data-y="${this.beg[i][1]}">+</div>`)
+        .css({
+          top: `${top}px`,
+          left: `${left}px`
+        })
+        .appendTo(this.$designerUI)
+        .draggable({
+          drag(evt) {
+            const x = evt.pageX * self.matrix.a + self.matrix.e
+            const y = (evt.pageY - scrollTop) * self.matrix.d + self.matrix.f
+            self.beg[i] = [x, y]
+            self.draw()
+          }
+        })
+
+      top = this.end[i][1] * m2.a + m2.f + scrollTop
+      left = this.end[i][0] * m2.d + m2.e
+      $(`<div class="control" data-x="${this.end[i][0]}" data-y="${this.end[i][1]}">-</div>`)
+        .css({
+          top: `${top}px`,
+          left: `${left}px`
+        })
+        .appendTo(this.$designerUI)
+        .draggable({
+          drag(evt) {
+            const x = evt.pageX * self.matrix.a + self.matrix.e
+            const y = (evt.pageY - scrollTop) * self.matrix.d + self.matrix.f
+            self.end[i] = [x, y]
+            self.draw()
+          }
+        })
+    }
   }
 
   getLinear(i) {
@@ -80,10 +114,11 @@ class Designer {
     }
 
     this.$targetSVG.html(paths.join(''))
-    for (let i = 0; i < this.order; i++) {
-      paths.push(`<circle cx="${this.beg[i][0]}" cy="${this.beg[i][1]}" r="2" fill="green" />`)
-      paths.push(`<circle cx="${this.end[i][0]}" cy="${this.end[i][1]}" r="2" fill="red" />`)
-    }
+    // DELETEME after scroll offset calculation is fixed
+    // for (let i = 0; i < this.order; i++) {
+    //   paths.push(`<circle cx="${this.beg[i][0]}" cy="${this.beg[i][1]}" r="2" fill="green" />`)
+    //   paths.push(`<circle cx="${this.end[i][0]}" cy="${this.end[i][1]}" r="2" fill="red" />`)
+    // }
     // Draw viewport reference circle
     paths.push('<circle cx="50" cy="50" r="51" fill="none" stroke="#888" stroke-width="0.5" />')
     this.$designerSVG.html(paths.join(''))

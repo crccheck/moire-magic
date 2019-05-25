@@ -15,6 +15,22 @@ $size: 4px;
   color: red;
 }
 
+.control {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
+
+  background: #28325299;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.25em;
+  cursor: move;
+  line-height: 1em;
+  text-align: center;
+}
+
 .first {
   order: -1;
 }

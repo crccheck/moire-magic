@@ -3,6 +3,7 @@
   <h1>Moire Magic</h1>
   <div class="container">
     <section class="col main">
+      <h2>Combined</h2>
       <div class="circle back">
         <svg width="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
@@ -17,12 +18,13 @@
     </section>
 
     <section class="col">
+      <h2>Rotating pattern</h2>
       <div class="pattern">
-        <div>
+        <form>
           <label><input type="radio" name="order" value="0" /> linear</label>
           <label><input type="radio" name="order" value="1" checked /> quadratic</label>
           <label><input type="radio" name="order" value="2" /> cubic</label>
-        </div>
+        </form>
         <svg width="100%" height="100%" viewBox="-50 -100 200 300" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
       Click to move green control point<br/>
@@ -30,19 +32,21 @@
     </section>
 
     <section class="col first">
+      <h2>Base pattern</h2>
       <div class="patternb">
-        <div>
+        <form>
           <label><input type="radio" name="orderb" value="0" /> linear</label>
           <label><input type="radio" name="orderb" value="1" checked /> quadratic</label>
           <label><input type="radio" name="orderb" value="2" /> cubic</label>
-        </div>
+        </form>
         <svg width="100%" height="100%" viewBox="-50 -100 200 300" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
       Click to move green control point<br/>
       Shift-click to move red control point
     </section>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="./index.js"></script>
 </body>
 </html>
