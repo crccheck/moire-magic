@@ -13,33 +13,24 @@ const HEIGHT = 100 + 2 * CROP
 
 class Designer {
   constructor(
-    $reference,
-    $root,
+    $designerUI,
+    $targetSVG,
     beg = [[20, -20], [50, 20]],
     end = [[20, 50], [70, 100]]
   ) {
-    this.beg = beg
-    this.end = end
-    this.$ref = $reference
-    this.$refSvg = $reference.find('svg')
-    this.$root = $root
+    this.$designerSVG = $designerUI.find('svg')
+    this.$targetSVG = $targetSVG
     this.order = 1
     this.pitch = 2
-    this.m = this.$refSvg[0].getScreenCTM().inverse()
-    this.setup()
-  }
+    this.beg = beg
+    this.end = end
+    this.$designerSVG.attr('viewBox', `${-CROP} ${-BLEED} ${100 + 2 * CROP} ${100 + 2 * BLEED}`)
+    const matrix = this.$designerSVG[0].getScreenCTM().inverse()
 
-  toString() {
-    return [this.order, this.pitch, this.beg.slice(0, this.order), this.end.slice(0, this.order)].join('|')
-  }
-
-  setup() {
-    const self = this;
-    this.$refSvg.attr('viewBox', `${-CROP} ${-BLEED} ${100 + 2 * CROP} ${100 + 2 * BLEED}`)
-    this.m = this.$refSvg[0].getScreenCTM().inverse()
-    this.$refSvg.on('click', function(evt, b) {
-      const x = evt.pageX * self.m.a + self.m.e
-      const y = evt.pageY * self.m.d + self.m.f
+    const self = this
+    this.$designerSVG.on('click', function(evt, b) {
+      const x = evt.pageX * matrix.a + matrix.e
+      const y = evt.pageY * matrix.d + matrix.f
       const idx = evt.ctrlKey || evt.metaKey ? 1: 0
       if (evt.shiftKey) {
         self.end[idx] = [x, y]
@@ -48,10 +39,14 @@ class Designer {
       }
       self.draw()
     })
-    this.$ref.find('input[type="radio"]').on('click', function () {
+    $designerUI.find('input[type="radio"]').on('click', function () {
       self.order = +this.value
       self.draw()
     })
+  }
+
+  toString() {
+    return [this.order, this.pitch, this.beg.slice(0, this.order), this.end.slice(0, this.order)].join('|')
   }
 
   getLinear(i) {
@@ -84,13 +79,14 @@ class Designer {
       }
     }
 
-    this.$root.html(paths.join(''))
+    this.$targetSVG.html(paths.join(''))
     for (let i = 0; i < this.order; i++) {
       paths.push(`<circle cx="${this.beg[i][0]}" cy="${this.beg[i][1]}" r="2" fill="green" />`)
       paths.push(`<circle cx="${this.end[i][0]}" cy="${this.end[i][1]}" r="2" fill="red" />`)
     }
+    // Draw viewport reference circle
     paths.push('<circle cx="50" cy="50" r="51" fill="none" stroke="#888" stroke-width="0.5" />')
-    this.$refSvg.html(paths.join(''))
+    this.$designerSVG.html(paths.join(''))
   }
 }
 
@@ -101,4 +97,4 @@ face.draw()
 back.draw()
 location.hash = back.toString() + ';' + face.toString()
 
-console.log(location.hash)
+// console.log(location.hash)
