@@ -15,6 +15,13 @@ $size: 4px;
   color: red;
 }
 
+.control {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: blue;
+}
+
 .first {
   order: -1;
 }
@@ -36,6 +43,8 @@ path {
 }
 
 .pattern, .patternb {
+  position: relative;
+
   svg {
     outline: 1px solid linen;
     max-height: calc(100vh - 2em);
