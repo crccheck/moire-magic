@@ -1,6 +1,46 @@
 <html>
 <body>
-  <script src="./index.js"></script>
   <h1>Hello World</h1>
+  <section class="col main">
+    <div class="circle back">
+      <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="circle face">
+      <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <div class="Form">
+      <div class="Form--back"></div>
+      <div class="Form--face"></div>
+    </div>
+  </section>
+
+  <section class="col">
+    <div class="pattern">
+      <div>
+        <label><input type="radio" name="order" value="0" /> linear</label>
+        <label><input type="radio" name="order" value="1" checked /> quadratic</label>
+        <label><input type="radio" name="order" value="2" /> cubic</label>
+      </div>
+      <svg width="100%" height="100%" viewBox="-50 -100 200 300" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    Click to move green control point<br/>
+    Shift-click to move red control point
+  </section>
+
+  <section class="col first">
+    <div class="patternb">
+      <div>
+        <label><input type="radio" name="orderb" value="0" /> linear</label>
+        <label><input type="radio" name="orderb" value="1" checked /> quadratic</label>
+        <label><input type="radio" name="orderb" value="2" /> cubic</label>
+      </div>
+      <svg width="100%" height="100%" viewBox="-50 -100 200 300" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    Click to move green control point<br/>
+    Shift-click to move red control point
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./index.js"></script>
 </body>
 </html>
