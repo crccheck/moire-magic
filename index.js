@@ -66,6 +66,7 @@ class Designer {
           left: `${left}px`
         })
         .appendTo(this.$designerUI)
+        .draggable()
 
       top = this.end[i][1] * m2.a + m2.f + scrollTop
       left = this.end[i][0] * m2.d + m2.e
@@ -75,6 +76,7 @@ class Designer {
           left: `${left}px`
         })
         .appendTo(this.$designerUI)
+        .draggable()
     }
   }
 
